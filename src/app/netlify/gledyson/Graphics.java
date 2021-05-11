@@ -19,7 +19,7 @@ public class Graphics extends JPanel implements ActionListener {
 		START, RUNNING, END
 	}
 
-	private GameState state = GameState.RUNNING;
+	private GameState state = GameState.START;
 
 	private Game game;
 	private Snake player;
@@ -44,10 +44,17 @@ public class Graphics extends JPanel implements ActionListener {
 
 		Graphics2D g = (Graphics2D) graphics;
 
-		if (state == GameState.RUNNING) {
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, Game.WIDTH * Game.DIMENSION, Game.HEIGHT * Game.DIMENSION);
 
-			g.setColor(Color.BLACK);
-			g.fillRect(0, 0, Game.WIDTH * Game.DIMENSION, Game.HEIGHT * Game.DIMENSION);
+		if (state == GameState.START) {
+
+			g.setColor(Color.GREEN);
+			String startMessage = "Press any KEY to start";
+			g.drawString(startMessage, ((Game.WIDTH * Game.DIMENSION) / 2) - Game.DIMENSION - 40,
+					((Game.HEIGHT * Game.DIMENSION) / 2) - Game.DIMENSION);
+			
+		} else if (state == GameState.RUNNING) {
 
 			// drop the food
 			g.setColor(Color.MAGENTA);
@@ -58,6 +65,12 @@ public class Graphics extends JPanel implements ActionListener {
 			for (Rectangle bodyPart : player.getBody()) {
 				g.fill(bodyPart);
 			}
+		} else if (state == GameState.END) {
+
+			g.setColor(Color.RED);
+			String startMessage = String.format("GAME OVER! Your score: %d", player.getBody().size() - 3);
+			g.drawString(startMessage, ((Game.WIDTH * Game.DIMENSION) / 2) - Game.DIMENSION - 40,
+					((Game.HEIGHT * Game.DIMENSION) / 2) - Game.DIMENSION);
 		}
 
 		Toolkit.getDefaultToolkit().sync();
@@ -69,5 +82,13 @@ public class Graphics extends JPanel implements ActionListener {
 		repaint();
 		game.update();
 
+	}
+
+	public GameState getState() {
+		return state;
+	}
+
+	public void setState(GameState state) {
+		this.state = state;
 	}
 }

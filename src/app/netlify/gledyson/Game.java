@@ -4,7 +4,6 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.swing.JFrame;
 
@@ -35,21 +34,21 @@ public class Game implements KeyListener {
 	}
 
 	public void update() {
-		if (didCollideWithWall()) {
+		if (graphics.getState() == Graphics.GameState.START || graphics.getState() == Graphics.GameState.END) {
+			return;
+		}
 
-			System.out.println("Collided with wall! GAME OVER!");
+		if (didCollideWithWall()) {
+			graphics.setState(Graphics.GameState.END);
 
 			return;
 
 		} else if (didCollideWithSelf()) {
-
-			System.out.println("You just ate yourself!");
+			graphics.setState(Graphics.GameState.END);
 
 			return;
 
 		} else if (didCollideWithFood()) {
-
-			System.out.println("Yummy! Delicious!");
 			food.placeAtRandomPosition(player);
 			player.grow();
 
@@ -141,6 +140,12 @@ public class Game implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+
+		if (graphics.getState() == Graphics.GameState.START) {
+			graphics.setState(Graphics.GameState.RUNNING);
+			return;
+		}
+
 		int keyCode = e.getKeyCode();
 
 		switch (keyCode) {
