@@ -44,7 +44,6 @@ public class Food {
 		y = randY;
 
 		food.setLocation(x, y);
-//		food.setLocation((Game.WIDTH / 2 - 3) * Game.DIMENSION, (Game.HEIGHT / 2) * Game.DIMENSION);
 		System.out.println(String.format("x: %3d, y: %3d", randX, randY));
 	}
 

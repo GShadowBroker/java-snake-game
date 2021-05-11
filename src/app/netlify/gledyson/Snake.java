@@ -109,4 +109,12 @@ public class Snake {
 	public void goLeft() {
 		direction = Direction.LEFT;
 	}
+
+	public static Direction getDirection() {
+		return direction;
+	}
+
+	public static void setDirection(Direction direction) {
+		Snake.direction = direction;
+	}
 }

@@ -50,11 +50,11 @@ public class Graphics extends JPanel implements ActionListener {
 			g.fillRect(0, 0, Game.WIDTH * Game.DIMENSION, Game.HEIGHT * Game.DIMENSION);
 
 			// drop the food
-			g.setColor(Color.YELLOW);
+			g.setColor(Color.MAGENTA);
 			g.fill(food.getFood());
 
 			// drop the snake on the screen
-			g.setColor(Color.BLUE);
+			g.setColor(Color.GREEN);
 			for (Rectangle bodyPart : player.getBody()) {
 				g.fill(bodyPart);
 			}
